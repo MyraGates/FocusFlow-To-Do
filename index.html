@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FocusFlow - To-Do App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header with title and dark mode toggle -->
+    <div class="header">
+      <h1>📝 FocusFlow - To-Do</h1>
+      <button id="theme-toggle">🌙 Dark Mode</button>
+    </div>
+
+    <!-- Task input section: task text, due date, add button -->
+    <div class="input-section">
+      <input type="text" id="task-input" placeholder="Add a new task..." />
+      <input type="date" id="task-date" />
+      <button id="add-task">Add</button>
+    </div>
+
+    <!-- Search bar -->
+    <input type="text" id="search-input" placeholder="Search tasks..." />
+
+    <!-- Filter buttons for task status -->
+    <div class="filter-buttons">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="active">Active</button>
+      <button class="filter" data-filter="completed">Completed</button>
+    </div>
+
+    <!-- List where tasks will be displayed -->
+    <ul id="task-list"></ul>
+  </div>
+
+  <!-- Link to JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
