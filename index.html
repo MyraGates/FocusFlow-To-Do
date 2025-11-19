@@ -1,41 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FocusFlow - To-Do App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-container">
-    <!-- Header with title and dark mode toggle -->
+
+    <!-- HEADER: title, theme selector, clear completed -->
     <div class="header">
       <h1>📝 FocusFlow - To-Do</h1>
-      <button id="theme-toggle">🌙 Dark Mode</button>
+
+      <div class="header-controls">
+        <select id="theme-select" title="Choose theme">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="blueberry">Blueberry</option>
+          <option value="rose">Rose</option>
+          <option value="emerald">Emerald</option>
+          <option value="sunset">Sunset</option>
+          <option value="lavender">Lavender</option>
+          <option value="midnight">Midnight</option>
+          <option value="coffee">Coffee</option>
+          <option value="ocean">Ocean</option>
+          <option value="candy">Candy</option>
+          <option value="gold">Gold</option>
+        </select>
+
+        <button id="clear-completed" title="Clear completed tasks">🧹 Clear Completed</button>
+      </div>
     </div>
 
-    <!-- Task input section: task text, due date, add button -->
+    <!-- INPUT: text, date, priority, category, add -->
     <div class="input-section">
-      <input type="text" id="task-input" placeholder="Add a new task..." />
-      <input type="date" id="task-date" />
+      <input id="task-input" type="text" placeholder="Add a new task..." />
+      <input id="task-date" type="date" />
+      <select id="task-priority" title="Priority">
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+        <option value="low">Low</option>
+      </select>
+      <select id="task-category" title="Category">
+        <option value="general" selected>General</option>
+        <option value="work">Work</option>
+        <option value="personal">Personal</option>
+        <option value="school">School</option>
+        <option value="errand">Errand</option>
+      </select>
       <button id="add-task">Add</button>
     </div>
 
-    <!-- Search bar -->
-    <input type="text" id="search-input" placeholder="Search tasks..." />
+    <!-- Controls: search, sort, filters -->
+    <div class="controls-row">
+      <input id="search-input" type="text" placeholder="Search tasks..." />
+      <select id="sort-select" title="Sort">
+        <option value="default">Sort: Default</option>
+        <option value="due">Due date</option>
+        <option value="priority">Priority</option>
+        <option value="alpha">A → Z</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </div>
 
-    <!-- Filter buttons for task status -->
     <div class="filter-buttons">
       <button class="filter active" data-filter="all">All</button>
       <button class="filter" data-filter="active">Active</button>
       <button class="filter" data-filter="completed">Completed</button>
     </div>
 
-    <!-- List where tasks will be displayed -->
-    <ul id="task-list"></ul>
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard">
+      <div class="stat">
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-completed">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-due-today">0</div>
+        <div class="stat-label">Due today</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-overdue">0</div>
+        <div class="stat-label">Overdue</div>
+      </div>
+      <div class="stat progress">
+        <div class="progress-bar-bg"><div id="progress-fill" class="progress-fill"></div></div>
+        <div class="stat-label">Completion</div>
+      </div>
+    </div>
+
+    <!-- TASK LIST -->
+    <ul id="task-list" class="task-list" aria-live="polite"></ul>
+
+    <!-- FOOTER: small legend -->
+    <div class="footer-note">
+      Click a task to toggle complete. Use ✏️ to edit, ⏱ to start Pomodoro, ↕ to drag. Notes expand with "Details".
+    </div>
   </div>
 
-  <!-- Link to JavaScript file -->
   <script src="script.js"></script>
 </body>
 </html>
