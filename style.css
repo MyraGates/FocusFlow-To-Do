@@ -240,39 +240,56 @@ body.theme-gold { --bg-color:#fffaf0; --text-color:#624b10; --card-color:#ffffff
   }
 }
 
-/* Phones (below 600px) */
+/* ===============================
+   MOBILE FIX – CLEAN TASK LAYOUT
+   =============================== */
 @media (max-width: 600px) {
-  body {
-    padding: 20px;
-  }
 
-  .header {
+  /* Make the list items vertical and spaced */
+  .task-item {
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 14px;
   }
 
-  .input-section {
-    flex-direction: column;
+  /* The left content (task text + date) fills the width */
+  .task-item > div {
+    width: 100%;
   }
 
+  /* Task text should wrap, not squish */
+  .task-text {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 16px;
+  }
+
+  /* Due date text */
+  .task-meta {
+    font-size: 13px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* Delete button moves below and right-aligned */
+  .delete-btn {
+    align-self: flex-end;
+    font-size: 20px;
+    margin-top: 4px;
+  }
+
+  /* Inputs full width */
   #task-input,
   #task-date,
   #add-task {
     width: 100%;
   }
 
+  /* Filters stack vertically for cleaner tap targets */
   .filter-buttons {
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .task-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .delete-btn {
-    align-self: flex-end;
+    gap: 8px;
   }
 }
+
