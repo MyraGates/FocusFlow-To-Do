@@ -1,5 +1,10 @@
-/* ---------- BASE THEME (light) ---------- */
-:root{
+/* =================================================
+   FocusFlow - style.css
+   Rewritten: organized + robust mobile stacking
+   ================================================= */
+
+/* ---------- 1. VARIABLES / BASE THEME (light) ---------- */
+:root {
   --bg-color: #f4f6f8;
   --text-color: #333;
   --card-color: #ffffff;
@@ -11,21 +16,29 @@
   --item-bg: #f9f9f9;
   --radius: 10px;
   --shadow: 0 6px 24px rgba(16,24,40,0.06);
+
+  /* sizing */
+  --gap: 12px;
+  --small-gap: 8px;
+  --input-radius: 8px;
+  --card-padding: 10px;
 }
 
-/* PAGE */
+/* ---------- 2. GLOBAL LAYOUT ---------- */
+* { box-sizing: border-box; }
+
 body {
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   margin: 0;
   padding: 36px;
   display: flex;
   justify-content: center;
+  -webkit-font-smoothing:antialiased;
   transition: background .25s, color .25s;
 }
 
-/* APP CONTAINER */
 .app-container {
   width: 100%;
   max-width: 900px;
@@ -35,261 +48,332 @@ body {
   box-shadow: var(--shadow);
 }
 
-/* HEADER */
+/* ---------- 3. HEADER & CONTROLS ---------- */
 .header {
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--gap);
 }
+.header h1 { margin: 0; font-size: 20px; line-height: 1; }
 
-.header h1 { margin:0; font-size:20px; }
-
-/* header controls */
 .header-controls {
   display:flex;
-  gap:8px;
+  gap: 8px;
   align-items:center;
 }
 
-#theme-select, #sort-select, #task-priority, #task-category {
-  padding:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
+#theme-select,
+#sort-select,
+#task-priority,
+#task-category {
+  padding: 8px;
+  border-radius: var(--input-radius);
+  border: 1px solid #ccc;
   background: white;
 }
 
-/* INPUT SECTION */
+/* ---------- 4. INPUT AREA ---------- */
 .input-section {
   display:flex;
-  gap:8px;
-  margin-top:14px;
-  flex-wrap:wrap;
-  align-items:center;
+  gap: var(--small-gap);
+  margin-top: 14px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 #task-input, #search-input {
-  flex:1;
-  padding:10px 12px;
-  border-radius:8px;
-  border:1px solid #ddd;
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: var(--input-radius);
+  border: 1px solid #ddd;
 }
 
-#task-date { padding:10px; border-radius:8px; border:1px solid #ddd; }
+#task-date {
+  padding: 10px;
+  border-radius: var(--input-radius);
+  border: 1px solid #ddd;
+}
 
 #add-task {
-  padding:10px 16px;
-  background:var(--accent);
-  color:white;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--input-radius);
+  cursor: pointer;
 }
-#add-task:hover { background:var(--accent-hover); }
+#add-task:hover { background: var(--accent-hover); }
 
 .controls-row {
   display:flex;
-  gap:8px;
-  margin-top:12px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-/* FILTERS */
+/* ---------- 5. FILTERS ---------- */
 .filter-buttons {
   display:flex;
-  gap:8px;
-  margin-top:10px;
+  gap: 8px;
+  margin-top: 10px;
 }
 .filter {
-  background:none;
-  border:none;
-  padding:6px 10px;
-  cursor:pointer;
-  color:var(--accent);
-  font-weight:600;
-  border-radius:6px;
+  background: none;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 600;
+  border-radius: 6px;
 }
-.filter.active { border-bottom:3px solid var(--accent); }
+.filter.active { border-bottom: 3px solid var(--accent); }
 
-/* DASHBOARD */
+/* ---------- 6. DASHBOARD ---------- */
 .dashboard {
   display:flex;
-  gap:12px;
-  margin:12px 0 8px;
-  align-items:center;
-  flex-wrap:wrap;
+  gap: 12px;
+  margin: 12px 0 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.stat { text-align:center; min-width:80px; }
-.stat-value { font-weight:700; font-size:18px; }
-.stat-label { font-size:12px; color:var(--muted); }
-.progress { flex:1; min-width:160px; }
-.progress-bar-bg { background: #eee; height:10px; border-radius:999px; overflow:hidden; margin:6px 0; }
-.progress-fill { width:0%; height:100%; background:var(--accent); transition:width .4s; }
+.stat { text-align: center; min-width: 80px; }
+.stat-value { font-weight: 700; font-size: 18px; }
+.stat-label { font-size: 12px; color: var(--muted); }
+.progress { flex: 1; min-width: 160px; }
+.progress-bar-bg { background: #eee; height: 10px; border-radius: 999px; overflow: hidden; margin: 6px 0; }
+.progress-fill { width: 0%; height: 100%; background: var(--accent); transition: width .4s; }
 
-/* TASKS LIST */
-.task-list { list-style:none; padding:0; margin:0; display:block; }
+/* ---------- 7. TASK LIST (DESKTOP) ---------- */
+.task-list { list-style: none; padding: 0; margin: 0; display: block; }
+
 .task-item {
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  background:var(--item-bg);
-  padding:10px;
-  border-radius:8px;
-  margin-bottom:10px;
-  border:1px solid rgba(0,0,0,0.02);
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+  background: var(--item-bg);
+  padding: var(--card-padding);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
-/* LEFT COLUMN of a task */
-.task-left { display:flex; gap:10px; align-items:flex-start; flex:1; min-width:0; }
+/* Left column (checkbox + content) */
+.task-left {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0; /* allow children to shrink */
+}
+
+/* Checkbox button */
 .checkbox {
-  width:24px; height:24px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
-  background:white; border:1px solid #ddd;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  background: white;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
 }
-.task-body { flex:1; min-width:0; }
+
+/* body/text */
+.task-body { flex: 1; min-width: 0; }
 .task-title {
-  font-weight:600; display:flex; gap:8px; align-items:center; justify-content:space-between;
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
 }
-.task-title .text { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:65%; cursor:pointer; }
-.task-meta { font-size:12px; color:var(--muted); margin-top:6px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.task-title .text,
+.task-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 65%;
+  cursor: pointer;
+}
+
+/* meta (due date, added) */
+.task-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
 /* priority chips */
-.chip { padding:4px 8px; border-radius:999px; font-size:12px; font-weight:600; }
-.chip.low { background:#e8f3ff; color:#124; }
-.chip.medium { background:#fff3cd; color:#6b4a00; }
-.chip.high { background:#ffe6e6; color:#6b0000; }
+.chip {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.chip.low { background: #e8f3ff; color: #124; }
+.chip.medium { background: #fff3cd; color: #6b4a00; }
+.chip.high { background: #ffe6e6; color: #6b0000; }
 
-/* RIGHT controls: buttons */
-.task-actions { display:flex; gap:8px; align-items:center; margin-left:auto; }
-.icon-btn { background:none; border:none; cursor:pointer; padding:6px; font-size:16px; border-radius:6px; }
-.icon-btn:hover { background:rgba(0,0,0,0.03); }
+/* action buttons on right */
+.task-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+.icon-btn:hover { background: rgba(0,0,0,0.03); }
 
-/* due/date alerts */
-.task-item.due-today { box-shadow: 0 0 0 2px rgba(255,200,80,0.08) inset; }
-.task-item.overdue { border-left:4px solid var(--danger); }
-
-/* completed styling */
-.task-title .text.completed { text-decoration:line-through; color:#888; font-weight:500; }
-
-/* details area (notes & pomodoro) */
-.details { margin-top:10px; background:rgba(0,0,0,0.02); padding:8px; border-radius:6px; display:none; }
-.details.open { display:block; }
-.details textarea { width:100%; min-height:64px; border-radius:6px; padding:8px; border:1px solid #ddd; }
-
-/* drag handle */
-.drag-handle { font-size:18px; cursor:grab; }
-
-/* small footer note */
-.footer-note { margin-top:10px; color:var(--muted); font-size:13px; }
-
-/* responsive */
-@media (max-width:760px){
-  .input-section { gap:6px; }
-  .task-title .text { max-width:50%; }
+/* allow both selectors for delete */
+.delete-btn,
+.icon-btn.delete {
+  color: var(--danger);
+  font-size: 18px;
 }
 
-/* ---------- THEMES ---------- */
+/* due/overdue visuals */
+.task-item.due-today { box-shadow: 0 0 0 2px rgba(255,200,80,0.06) inset; }
+.task-item.overdue { border-left: 4px solid var(--danger); }
 
-/* Dark */
-body.theme-dark { --bg-color:#0f1115; --text-color:#e6eef8; --card-color:#15171b; --muted:#a9b0bd; --accent:#4da3ff; --accent-hover:#1a73e8; --item-bg:#202328; }
+/* completed text */
+.task-title .text.completed,
+.task-text.completed {
+  text-decoration: line-through;
+  color: #888;
+  font-weight: 500;
+}
 
-/* Blueberry */
+/* details area */
+.details {
+  margin-top: 10px;
+  background: rgba(0,0,0,0.02);
+  padding: 8px;
+  border-radius: 6px;
+  display: none;
+}
+.details.open { display: block; }
+.details textarea {
+  width: 100%;
+  min-height: 64px;
+  border-radius: 6px;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+/* drag */
+.drag-handle { font-size: 18px; cursor: grab; }
+
+/* footer */
+.footer-note { margin-top: 10px; color: var(--muted); font-size: 13px; }
+
+/* ---------- 8. THEMES (kept from your file) ---------- */
+body.theme-dark   { --bg-color:#0f1115; --text-color:#e6eef8; --card-color:#15171b; --muted:#a9b0bd; --accent:#4da3ff; --accent-hover:#1a73e8; --item-bg:#202328; }
 body.theme-blueberry { --bg-color:#eaf0ff; --text-color:#0c1740; --card-color:#ffffff; --muted:#4a5a8a; --accent:#355cff; --accent-hover:#2645cc; --item-bg:#fbfdff; }
-
-/* Rose */
-body.theme-rose { --bg-color:#fff0f4; --text-color:#3a1723; --card-color:#ffffff; --muted:#6a3750; --accent:#ff5685; --accent-hover:#db4068; --item-bg:#fff7fa; }
-
-/* Emerald */
-body.theme-emerald { --bg-color:#f1fff6; --text-color:#083824; --card-color:#ffffff; --muted:#3b6a55; --accent:#23a066; --accent-hover:#1a7a4f; --item-bg:#fbfffb; }
-
-/* Sunset */
+body.theme-rose   { --bg-color:#fff0f4; --text-color:#3a1723; --card-color:#ffffff; --muted:#6a3750; --accent:#ff5685; --accent-hover:#db4068; --item-bg:#fff7fa; }
+body.theme-emerald{ --bg-color:#f1fff6; --text-color:#083824; --card-color:#ffffff; --muted:#3b6a55; --accent:#23a066; --accent-hover:#1a7a4f; --item-bg:#fbfffb; }
 body.theme-sunset { --bg-color:#fff7ef; --text-color:#6b3f20; --card-color:#ffffff; --muted:#8a5b3d; --accent:#ff8a3c; --accent-hover:#d6692b; --item-bg:#fffaf6; }
+body.theme-lavender{ --bg-color:#faf5ff; --text-color:#2f1f46; --card-color:#ffffff; --muted:#5f4b7a; --accent:#8758ff; --accent-hover:#6943cc; --item-bg:#fdfbff; }
+body.theme-midnight{ --bg-color:#071028; --text-color:#e9f2ff; --card-color:#0e1a2a; --muted:#9fb8d9; --accent:#3858ff; --accent-hover:#1a3ad1; --item-bg:#0d1b2b; }
+body.theme-coffee  { --bg-color:#fbf5ef; --text-color:#3d2413; --card-color:#ffffff; --muted:#7b5a45; --accent:#a87350; --accent-hover:#8f5b3a; --item-bg:#fffaf6; }
+body.theme-ocean  { --bg-color:#eefbff; --text-color:#062a34; --card-color:#ffffff; --muted:#4f7e87; --accent:#1da3c5; --accent-hover:#167d96; --item-bg:#f7feff; }
+body.theme-candy  { --bg-color:#fff0fb; --text-color:#4b163f; --card-color:#ffffff; --muted:#7a4a74; --accent:#ff4fb1; --accent-hover:#d63d94; --item-bg:#fff7fd; }
+body.theme-gold   { --bg-color:#fffaf0; --text-color:#624b10; --card-color:#ffffff; --muted:#8a7237; --accent:#d2a016; --accent-hover:#b3850e; --item-bg:#fffbf6; }
 
-/* Lavender */
-body.theme-lavender { --bg-color:#faf5ff; --text-color:#2f1f46; --card-color:#ffffff; --muted:#5f4b7a; --accent:#8758ff; --accent-hover:#6943cc; --item-bg:#fdfbff; }
+/* ---------- 9. RESPONSIVE: TABLET & PHONE (STACKED TASKS ON MOBILE) ---------- */
 
-/* Midnight */
-body.theme-midnight { --bg-color:#071028; --text-color:#e9f2ff; --card-color:#0e1a2a; --muted:#9fb8d9; --accent:#3858ff; --accent-hover:#1a3ad1; --item-bg:#0d1b2b; }
-
-/* Coffee */
-body.theme-coffee { --bg-color:#fbf5ef; --text-color:#3d2413; --card-color:#ffffff; --muted:#7b5a45; --accent:#a87350; --accent-hover:#8f5b3a; --item-bg:#fffaf6; }
-
-/* Ocean */
-body.theme-ocean { --bg-color:#eefbff; --text-color:#062a34; --card-color:#ffffff; --muted:#4f7e87; --accent:#1da3c5; --accent-hover:#167d96; --item-bg:#f7feff; }
-
-/* Candy */
-body.theme-candy { --bg-color:#fff0fb; --text-color:#4b163f; --card-color:#ffffff; --muted:#7a4a74; --accent:#ff4fb1; --accent-hover:#d63d94; --item-bg:#fff7fd; }
-
-/* Gold */
-body.theme-gold { --bg-color:#fffaf0; --text-color:#624b10; --card-color:#ffffff; --muted:#8a7237; --accent:#d2a016; --accent-hover:#b3850e; --item-bg:#fffbf6; }
-/* ===============================
-   RESPONSIVE – PHONES & TABLETS
-   =============================== */
-
-/* Tablets and smaller (below 900px) */
+/* Tablet and smaller (<=900px) */
 @media (max-width: 900px) {
-  .app-container {
-    max-width: 90%;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 24px;
-  }
-
-  #add-task {
-    width: 100%;
-  }
+  .app-container { max-width: 92%; padding: 18px; }
+  h1 { font-size: 22px; }
+  #add-task { width: 100%; }
+  .task-title .text,
+  .task-text { max-width: 55%; }
 }
 
-/* ===============================
-   MOBILE FIX – CLEAN TASK LAYOUT
-   =============================== */
+/* Phone (<=600px) — OPTION A: CLEAN STACKED CARD */
 @media (max-width: 600px) {
+  body { padding: 18px; }
 
-  /* Make the list items vertical and spaced */
+  /* Stack inputs vertically */
+  .input-section { flex-direction: column; gap: 10px; }
+  .controls-row { flex-direction: column; gap: 10px; }
+
+  /* Make header flow vertically */
+  .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .header-controls { width: 100%; display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* Filters become full-width rows for easy tapping */
+  .filter-buttons { flex-direction: row; gap: 8px; overflow-x: auto; }
+
+  /* TASK CARD - STACKED */
   .task-item {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
+    align-items: stretch;
+    gap: 10px;
     padding: 14px;
   }
 
-  /* The left content (task text + date) fills the width */
-  .task-item > div {
-    width: 100%;
-  }
+  /* Left area fills width */
+  .task-left { width: 100%; display: flex; gap: 12px; align-items: flex-start; }
 
-  /* Task text should wrap, not squish */
+  /* Checkbox stays left, content fills */
+  .checkbox { flex-shrink: 0; }
+
+  /* Title and details stack vertically */
+  .task-body { width: 100%; }
+  .task-title { flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; }
+  .task-title .text,
   .task-text {
-    width: 100%;
-    word-wrap: break-word;
+    white-space: normal;       /* allow wrap on mobile */
+    overflow: visible;
+    text-overflow: clip;
+    max-width: 100%;
     font-size: 16px;
+    line-height: 1.2;
   }
 
-  /* Due date text */
-  .task-meta {
-    font-size: 13px;
-    color: #888;
-    margin-top: 2px;
-  }
+  /* Meta goes under title */
+  .task-meta { margin-top: 6px; font-size: 13px; color: var(--muted); }
 
-  /* Delete button moves below and right-aligned */
-  .delete-btn {
-    align-self: flex-end;
-    font-size: 20px;
-    margin-top: 4px;
-  }
-
-  /* Inputs full width */
-  #task-input,
-  #task-date,
-  #add-task {
+  /* action row moves below in its own line */
+  .task-actions {
     width: 100%;
+    justify-content: flex-start;
+    gap: 12px;
+    padding-top: 4px;
   }
 
-  /* Filters stack vertically for cleaner tap targets */
-  .filter-buttons {
-    flex-direction: column;
-    gap: 8px;
+  /* ensure delete/trash floats visually to right via margin-left auto if needed */
+  .delete-btn,
+  .icon-btn.delete {
+    margin-left: auto;
+    align-self: center;
+    font-size: 20px;
   }
+
+  /* details area fills width */
+  .details { width: 100%; }
+  .details textarea { min-height: 80px; }
+
+  /* increase tap targets */
+  .icon-btn, #add-task, #theme-select, #sort-select, #task-priority, #task-category { padding: 10px; }
 }
 
+/* ---------- 10. SMALL UTILITIES ---------- */
+.hidden { display:none !important; }
+.center { text-align:center; }
+
+/* end of file */
