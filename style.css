@@ -220,3 +220,59 @@ body.theme-candy { --bg-color:#fff0fb; --text-color:#4b163f; --card-color:#fffff
 
 /* Gold */
 body.theme-gold { --bg-color:#fffaf0; --text-color:#624b10; --card-color:#ffffff; --muted:#8a7237; --accent:#d2a016; --accent-hover:#b3850e; --item-bg:#fffbf6; }
+/* ===============================
+   RESPONSIVE – PHONES & TABLETS
+   =============================== */
+
+/* Tablets and smaller (below 900px) */
+@media (max-width: 900px) {
+  .app-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  #add-task {
+    width: 100%;
+  }
+}
+
+/* Phones (below 600px) */
+@media (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .input-section {
+    flex-direction: column;
+  }
+
+  #task-input,
+  #task-date,
+  #add-task {
+    width: 100%;
+  }
+
+  .filter-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .delete-btn {
+    align-self: flex-end;
+  }
+}
